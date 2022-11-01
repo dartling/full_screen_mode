@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:full_screen_mode/focus_mode.dart';
 
 void main() {
   runApp(const MyApp());
@@ -53,6 +54,13 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const FocusModePage()));
+              },
+              child: const Text('Enter focus mode'),
             ),
           ],
         ),
