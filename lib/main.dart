@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:full_screen_mode/focus_mode.dart';
 
 void main() {
@@ -31,6 +34,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  bool _isFullScreen = false;
 
   void _incrementCounter() {
     setState(() {
@@ -62,6 +66,29 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               child: const Text('Enter focus mode'),
             ),
+            if (!_isFullScreen)
+              TextButton(
+                onPressed: () {
+                  log('Entering full screen mode...');
+                  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+                  setState(() {
+                    _isFullScreen = true;
+                  });
+                },
+                child: const Text('Enter full screen'),
+              ),
+            if (_isFullScreen)
+              TextButton(
+                onPressed: () {
+                  log('Exiting full screen mode...');
+                  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+                      overlays: SystemUiOverlay.values);
+                  setState(() {
+                    _isFullScreen = false;
+                  });
+                },
+                child: const Text('Exit full screen'),
+              ),
           ],
         ),
       ),
